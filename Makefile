@@ -9,7 +9,21 @@ FTPRINTF = ./ft_printf/libftprintf.a
 
 SRC = minishell.c \
       token.c \
-
+	  erros_sintax.c \
+	  free_elements.c \
+	  lista_aux.c \
+	  parser_args.c \
+	  parser_prompt.c \
+	  parser_redirect.c \
+	  utils.c \
+	  expander.c \
+	  trim_quotes.c \
+	  debugs.c \
+	  iniciar_execucao.c \
+	  path.c \
+	  atualisa_shlvl.c \
+	  envp.c \
+	
 all: $(NAME)
 
 $(NAME): $(SRC:.c=.o)

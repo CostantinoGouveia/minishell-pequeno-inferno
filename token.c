@@ -196,21 +196,12 @@ void	end_quote(char *sig, char **s1, char **s2)
 	}
 }
 
-char	**lexer_sintax_error(char *s1)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*s2;
-	char	*s3;
-	char	**arr;
+	int	i;
 
-	arr = NULL;
-	s2 = str_spaces_end(s1);
-	s3 = split_pipes(s2);
-	free(s2);
-	s2 = split_redirects(s3);
-	free(s3);
-	replace_spaces(s2);
-	arr = ft_split(s2, '\2');
-	space_end(arr);
-	free(s2);
-	return (arr);
+	i = 0;
+	while ((s1[i] && s2[i]) && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }
