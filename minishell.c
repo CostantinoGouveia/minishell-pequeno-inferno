@@ -1,0 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/08 08:16:01 by cgouveia          #+#    #+#             */
+/*   Updated: 2025/01/20 15:10:45 by cgouveia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+void	cmdline_utils(char **line)
+{
+	free(*line);
+	*line = NULL;
+	//unlink_heredoc();
+}
+
+void print_tokens(char **tokens)
+{
+    int i;
+
+    i = 0;
+    while (tokens[i])
+    {
+        printf("tokens[%d]: %s\n", i, tokens[i]);
+        i++;
+    }
+}
+void	init_process(char *line)
+{
+	char		**tokens;
+	/*t_args		*args;
+	t_redirect	*redirect;
+	t_prompt	*prompt;
+*/
+	tokens = ft_lexer(line);
+    print_tokens(tokens);
+	/*args = NULL;
+	parser_args(&args, tokens);
+	redirect = NULL;
+	parser_redirects(&redirect, tokens);
+	prompt = NULL;
+	parser_prompt(&prompt, args, redirect, tokens);
+	free_arr(tokens);
+	free_args(&args);
+	free_redirects(&redirect);
+	exec_process(prompt);*/
+}
+
+
+
+int	cmdline(char *cmd_line, int ac)
+{
+	if (ac != 1)
+		return (ft_putstr_fd("Error: Wrong arguments\n", 2), 0);
+	while (true)
+	{
+		if (!cmd_line)
+			cmd_line = readline("[minishell]$ ");
+		//if (!cmd_line)
+			//exit_finald();
+		if (!just_spaces(cmd_line))
+		{
+			free(cmd_line);
+			cmd_line = NULL;
+		}
+		else
+		{
+			if (cmd_line && *cmd_line)
+				add_history(cmd_line);
+			//if (!sintax_errors(cmd_line) && ft_strlen(cmd_line) > 0)
+				init_process(cmd_line);
+		}
+		cmdline_utils(&cmd_line);
+	}
+	return (0);
+}
+
+
+int main(int ac, char **av)
+{
+    char	*cmd_line;
+
+    (void)av;
+	cmd_line = NULL;
+	cmdline(cmd_line, ac);
+	return 0;
+}
+

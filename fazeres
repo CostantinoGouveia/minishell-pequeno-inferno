@@ -1,0 +1,2 @@
+Tokenizar para que caracteres como ; : |  dentro de  '' sejem tratados como string nao comandos
+Tokenizar para que palavras fora de "" só possam ser alfanumerico, rederecionadores ou pipe
