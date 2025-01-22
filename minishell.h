@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/21 16:04:14 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:12:51 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <signal.h>
+#include <fcntl.h> 
+#include <sys/types.h> 
+#include <sys/wait.h> 
+#include <sys/ioctl.h>
+
 
 # define PIPE "|"
 # define INFILE "<"
@@ -112,7 +119,6 @@ typedef struct s_data
 }				t_data;
 
 t_data	*data(void);
-char	**envp_exec(char *envp[]);
 char	*add_name(char *str);
 char	*add_value(char *str);
 t_envp	*insert_end_envp(t_envp **head);
@@ -163,6 +169,22 @@ void		replace_spaces(char *s1);
 void		end_quote(char *sig, char **s1, char **s2);
 void		space_end(char **tokens);
 int			ft_strcmp(const char *s1, const char *s2);
+
+/*heredoc*/
+void	open_heredoc(t_command *command);
+int ft_open_here_doc (t_command *current);
+int ft_open_all (t_command *head);
+
+/*sinais*/
+void	handle_sigint(int sig);
+void	handle_sigint_hd(int sig);
+void	handle_signext(int sig);
+void	handle_sigint_clean(int sig);
+int	clean_newline(void);
+int	exit_finald(void);
+void	close_fds(void);
+int	index_heredoc(t_command *current);
+int	index_last_infile(t_command *current);
 
 /* Parser */
 void	parser_args(t_args **args, char **tokens);

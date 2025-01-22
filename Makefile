@@ -23,6 +23,8 @@ SRC = minishell.c \
 	  path.c \
 	  atualisa_shlvl.c \
 	  envp.c \
+	  fd.c \
+	  sinais.c \
 	
 all: $(NAME)
 

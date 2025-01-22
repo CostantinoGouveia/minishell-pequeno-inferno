@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:16:01 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/21 15:55:42 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:28:08 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,25 @@ void	exec_process(t_prompt *prompt)
 	data()->is_exec_all = 1;
 	data()->path = get_value("PATH");
 	exec = init_exec(prompt);
-	print_commands(exec);
-	/*data()->exec = exec;
+	data()->exec = exec;
 	ft_open_all(exec);
+	print_commands(exec);
+	/*
 	executing(exec);
 	free_struct(data()->exec);*/
+}
+
+void	unlink_heredoc(void)
+{
+	if (access("/tmp/here_doc", F_OK) == 0)
+		unlink("/tmp/here_doc");
 }
 
 void	cmdline_utils(char **line)
 {
 	free(*line);
 	*line = NULL;
-	//unlink_heredoc();
+	unlink_heredoc();
 }
 
 void print_tokens(char **tokens)
@@ -52,16 +59,12 @@ void	init_process(char *line)
 	t_prompt	*prompt;
 
 	tokens = ft_lexer(line);
-    //print_tokens(tokens);
 	args = NULL;
 	parser_args(&args, tokens);
-	//print_args(args);
 	redirect = NULL;
 	parser_redirects(&redirect, tokens);
-	//print_redirects(redirect);
 	prompt = NULL;
 	parser_prompt(&prompt, args, redirect, tokens);
-	//print_prompt(prompt);
 	free_arr(tokens);
 	free_args(&args);
 	free_redirects(&redirect);
@@ -77,10 +80,12 @@ int	cmdline(char *cmd_line, int ac, char **envp)
 	new_envp(envp);
 	while (true)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handle_sigint);
 		if (!cmd_line)
 			cmd_line = readline("[minishell]$ ");
-		//if (!cmd_line)
-			//exit_finald();
+		if (!cmd_line)
+			exit_finald();
 		if (!just_spaces(cmd_line))
 		{
 			free(cmd_line);
