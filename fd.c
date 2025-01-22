@@ -4,7 +4,6 @@ void    check_open_redirect(t_command *command, int i)
 {
     if (command->prompt->tokens_id[i] == INFILE_ID)
     {
-        printf("ppppppppppppppppppp");
         if (command->infile_fd != -1)
 		    close(command->infile_fd);
         command->infile_fd = open(command->prompt->tokens[i], O_RDONLY);
@@ -30,7 +29,6 @@ void    check_open_redirect(t_command *command, int i)
     }
     else if (command->prompt->tokens_id[i] == OUTFILE_ID)
     {
-        printf("kkkkkkkkkkkk");
         if (command->outfile_fd != -1)
 		    close(command->outfile_fd);
         command->outfile_fd = open(command->prompt->tokens[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -46,7 +44,6 @@ void    check_open_redirect(t_command *command, int i)
     }
     else if (command->prompt->tokens_id[i] == APPEND_ID)
     {
-        printf("ccccccccccccccc");
         if (command->outfile_fd != -1)
 		    close(command->outfile_fd);
         command->outfile_fd = open(command->prompt->tokens[i], O_CREAT | O_RDWR | O_APPEND, 0644);
