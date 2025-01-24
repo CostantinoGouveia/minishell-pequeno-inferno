@@ -57,12 +57,7 @@ void print_echo(char **args, int outfile, int n_flag)
         }
     }
     if (ft_strcmp(args[i], "\0"))
-	{
-		if (n_flag)
 			ft_putstr_fd(args[i], outfile);
-		else
-			ft_putstr_fd(args[i], outfile);
-	}
 	if (!n_flag)
 		ft_putchar_fd('\n', outfile);
 	data()->exit_status = 0;
