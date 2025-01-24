@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 00:37:24 by feden-pe          #+#    #+#             */
-/*   Updated: 2025/01/24 14:10:48 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:18:02 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static char	*get_home(char *path)
 	free(tmp);
 	return (path);
 }
-static void	pwd()
+void	pwd(int outfile)
 {
 	char	pwd[PATH_MAX];
 
 	if (!getcwd(pwd, PATH_MAX))
 		return ;
-	ft_putendl_fd(pwd, 2);
+	ft_putendl_fd(pwd, outfile);
 	data()->exit_status = 0;
 }
 
@@ -78,7 +78,6 @@ void    ft_cd(char **args, int outfile)
 {
     if (args[2])
     {
-        printf("minishell: cd: too many arguments\n");
         ft_putendl_fd("minishell: cd: too many arguments", 2);
         data()->exit_status = 1;
         return ;

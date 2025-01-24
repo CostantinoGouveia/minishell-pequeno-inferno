@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/24 13:42:55 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:19:27 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void builtins(t_command *command, int infile, int outfile);
 void ft_echo(char **args, int outfile, int infile);
 void ft_exit(char **args);
 void    ft_cd(char **args, int outfile);
+void	pwd(int outfile);
 
 /* Lexer */
 int			white_space(char c);
