@@ -28,6 +28,7 @@ SRC = minishell.c \
 	  executor.c \
 	  echo.c \
 	  exit.c \
+	  cd.c \
 	
 all: $(NAME)
 

@@ -23,9 +23,9 @@ void builtins(t_command *command, int infile, int outfile)
 {
     if (ft_strcmp(command->args[0], "echo") == 0)
         ft_echo(command->args, outfile, infile);
-    /*else if (ft_strcmp(command->args[0], "cd") == 0)
-        ft_cd(command->args);
-    else if (ft_strcmp(command->args[0], "pwd") == 0)
+   else if (ft_strcmp(command->args[0], "cd") == 0)
+        ft_cd(command->args, outfile);
+     /*else if (ft_strcmp(command->args[0], "pwd") == 0)
         ft_pwd();
     else if (ft_strcmp(command->args[0], "export") == 0)
         ft_export(command->args);
