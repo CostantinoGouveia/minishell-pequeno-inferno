@@ -48,6 +48,14 @@ int	clean_newline(void)
 	return (0);
 }
 
+int	exit_final(void)
+{
+	clean_newline();
+	clear_history();
+	exit(data()->exit_status);
+	return (0);
+}
+
 int	exit_finald(void)
 {
 	free_arr(getevarr()->envp);

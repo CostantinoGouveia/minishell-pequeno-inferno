@@ -25,6 +25,9 @@ SRC = minishell.c \
 	  envp.c \
 	  fd.c \
 	  sinais.c \
+	  executor.c \
+	  echo.c \
+	  exit.c \
 	
 all: $(NAME)
 

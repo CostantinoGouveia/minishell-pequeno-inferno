@@ -62,7 +62,6 @@ char	*cmd_path(char *cmd)
 		(!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1)))
 		return (ft_strdup(cmd));
 	path_cmds = ft_split(data()->path, ':');
-	printf("path_cmds: %s\n", path_cmds[0]);
 	path = NULL;
 	tmp = path_cmds;
 	path = get_path(path_cmds, tmp, path, cmd);

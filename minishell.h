@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/22 16:12:51 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:25:21 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,14 @@ void	new_struct(t_prompt *prompt, t_command **head);
 void	print_commands(t_command *head);
 t_command	*init_exec(t_prompt *prompt);
 
+/*execucao*/
+void executor(t_command *head);
+void builtins(t_command *command, int infile, int outfile);
+
+/*commandos*/
+void ft_echo(char **args, int outfile, int infile);
+void ft_exit(char **args);
+
 
 /* Lexer */
 int			white_space(char c);
@@ -233,5 +241,6 @@ void	update_value(char *name, char *value);
 char	*get_value(char *name);
 int	node_exists(char *name);
 t_envp	*get_node(char *name);
+int	exit_final(void);
 
 #endif
