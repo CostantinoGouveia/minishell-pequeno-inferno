@@ -103,3 +103,5 @@ void	new_envp(char **envp)
 		data()->envp = getev;
 	}
 }
+
+extern char **envp;

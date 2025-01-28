@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/24 14:19:27 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:36:29 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,17 @@ t_command	*init_exec(t_prompt *prompt);
 /*execucao*/
 void executor(t_command *head);
 void builtins(t_command *command, int infile, int outfile);
+void	ft_dup2(t_command *command, int infile, int outfile);
 
 /*commandos*/
 void ft_echo(char **args, int outfile, int infile);
 void ft_exit(char **args);
 void    ft_cd(char **args, int outfile);
 void	pwd(int outfile);
+void    ft_env(int outfile, int dec);
+void ft_export(char **args, int outfile);
+void ft_unset(char **args);
+void free_no_envp(t_envp *no);
 
 /* Lexer */
 int			white_space(char c);

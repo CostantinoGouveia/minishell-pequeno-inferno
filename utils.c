@@ -136,6 +136,7 @@ t_data	*data(void)
 	return (&d);
 }
 
+
 t_envparr	*getevarr(void)
 {
 	static t_envparr	envp;

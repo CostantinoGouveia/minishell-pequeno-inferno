@@ -29,6 +29,8 @@ SRC = minishell.c \
 	  echo.c \
 	  exit.c \
 	  cd.c \
+	  env.c \
+	  unset.c \
 	
 all: $(NAME)
 

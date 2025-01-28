@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:16:01 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/23 14:15:23 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:26:31 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	exec_process(t_prompt *prompt)
 	data()->exec = exec;
 	ft_open_all(exec);
 	//print_commands(exec);
-	executor(exec);/*
-	free_struct(data()->exec);*/
+	executor(exec);
+	free_struct(data()->exec);
 }
 
 void	unlink_heredoc(void)
