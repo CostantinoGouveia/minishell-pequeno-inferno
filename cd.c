@@ -22,6 +22,7 @@ static char	*get_home(char *path)
 	free(tmp);
 	return (path);
 }
+
 void	pwd(int outfile)
 {
 	char	pwd[PATH_MAX];
@@ -74,23 +75,23 @@ static void	change_home(char *name, int print, int outfile)
 		change_directory(path, 0, outfile);
 }
 
-void    ft_cd(char **args, int outfile)
+void	ft_cd(char **args, int outfile)
 {
-    if (args[2])
-    {
-        ft_putendl_fd("minishell: cd: too many arguments", 2);
-        data()->exit_status = 1;
-        return ;
-    }
-    if (!args[1] || !ft_strcmp(args[1], "~"))
-        change_home("HOME", 0, outfile);   
-    else if (!ft_strcmp(args[1], "-"))
-        change_home("OLDPWD", 1, outfile);
-    else if (args[1][0] == '\0')
+	if (args[2])
 	{
-        data()->exit_status = 0;
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
+		data()->exit_status = 1;
 		return ;
 	}
-    else
-       change_directory(args[1], 0, outfile);   
+	if (!args[1] || !ft_strcmp(args[1], "~"))
+		change_home("HOME", 0, outfile);
+	else if (!ft_strcmp(args[1], "-"))
+		change_home("OLDPWD", 1, outfile);
+	else if (args[1][0] == '\0')
+	{
+		data()->exit_status = 0;
+		return ;
+	}
+	else
+		change_directory(args[1], 0, outfile);
 }
