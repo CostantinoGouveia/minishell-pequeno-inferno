@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:16:01 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/28 16:26:31 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:28:22 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	exec_process(t_prompt *prompt)
 	exec = init_exec(prompt);
 	data()->exec = exec;
 	ft_open_all(exec);
-	//print_commands(exec);
 	executor(exec);
 	free_struct(data()->exec);
 }

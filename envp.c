@@ -58,8 +58,8 @@ t_envp	*insert_end_envp(t_envp **head)
 	t_envp	*current;
 
 	new_node = ft_calloc(1, sizeof(t_envp));
-	//if (!new_node)
-		//exit_final();
+	if (!new_node)
+		exit_final();
 	if (!*head)
 	{
 		*head = new_node;

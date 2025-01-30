@@ -1,5 +1,29 @@
 #include "minishell.h"
 
+void	wait_all(t_command *head)
+{
+	t_command	*current;
+	int			status;
+	pid_t		pid;
+	pid_t		last_pid;
+
+	current = head;
+	status = 0;
+	last_pid = find_tail(current)->pid;
+
+	while ((pid = waitpid(-1, &status, 0)) > 0)
+	{
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+				data()->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				data()->exit_status = WTERMSIG(status) + 128;
+		}
+	}
+}
+
+
 static int exec_v(t_command *command, int infile, int outfile)
 {
     signal(SIGQUIT, SIG_IGN);
@@ -31,7 +55,6 @@ static int exec_v(t_command *command, int infile, int outfile)
             clean_newline();
 			exit(127);
         }
-        //waitpid(command->pid, NULL, 0);
     }
     if (infile != 0)
         close(infile);
@@ -139,8 +162,8 @@ void executor(t_command *head)
             clean_newline();
             break ;
         }
-        infile = dec_infile(current, infile);
         outfile = dec_outfile(current, outfile);
+        infile = dec_infile(current, infile);
         if (current->args && is_builtin(current->args[0]))
             builtins(current, infile, outfile);
         else
@@ -148,5 +171,5 @@ void executor(t_command *head)
         infile = current->fd[0];
         current = current->next;
     }
-   
+    wait_all(head);
 }

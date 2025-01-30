@@ -44,7 +44,7 @@ int	sintax_errors(char *line)
 
 int	msg_error(t_token *lst, char *type_err, int exit_status)
 {
-	//data()->exit_status = 2;
+	data()->exit_status = 2;
 	ft_putstr_fd("minishell: syntax error ", STDERR_FILENO);
 	ft_putstr_fd("near unexpected token `", STDERR_FILENO);
 	ft_putstr_fd(type_err, STDERR_FILENO);

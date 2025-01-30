@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/28 15:36:29 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:29:45 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ char	**cpy_arr(char **map);
 void	new_struct(t_prompt *prompt, t_command **head);
 void	print_commands(t_command *head);
 t_command	*init_exec(t_prompt *prompt);
+void	wait_all(t_command *head);
 
 /*execucao*/
 void executor(t_command *head);
