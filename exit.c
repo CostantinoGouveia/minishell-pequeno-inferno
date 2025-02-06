@@ -58,7 +58,7 @@ void ft_exit(char **args)
                 aux = 1;
             }
         }
-        if (!args[2])
+        if (!args[2] && data()->exit_status == 0)
             data()->exit_status = ft_atoi(args[1]);
     }
     if (data()->single_cmd == 1 || aux == 1)
