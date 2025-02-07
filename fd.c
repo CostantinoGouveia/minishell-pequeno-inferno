@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    check_open_redirect(t_command *command, int i)
+void	check_open_redirect(t_command *command, int i)
 {
     if (command->prompt->tokens_id[i] == INFILE_ID)
     {
@@ -60,90 +60,57 @@ void    check_open_redirect(t_command *command, int i)
     }
 }
 
-static void error_msg(char *token)
+static void	error_msg(char *token)
 {
-    close(data()->h_fd);
+	close(data()->h_fd);
 	ft_putstr_fd("minishell: warning: here-document ", STDERR_FILENO);
 	ft_putstr_fd("delimited by end-of-file (wanted `", STDERR_FILENO);
 	ft_putstr_fd(token, STDERR_FILENO);
 	ft_putendl_fd("')", STDERR_FILENO);
 }
 
-void	open_heredoc(t_command *command)
+int	ft_open_here_doc(t_command *current)
 {
-	command->infile_fd = open("/tmp/here_doc", O_RDONLY);
-	if (command->infile_fd == -1)
+	char	*line;
+	int		i;
+	int		fd;
+	int		pid;
+
+	i = -1;
+	while (current->prompt->tokens[++i])
 	{
-		command->is_exec = 0;
-		ft_putendl_fd("minishell: error on opening heredoc file" \
-		, STDERR_FILENO);
+		if (current->prompt->tokens_id[i] == HEREDOC_ID)
+		{
+			if (current->infile_fd != -1)
+				close(current->infile_fd);
+			pid = fork();
+			signal(SIGINT, handle_sigint_hd);
+			if (pid == 0)
+			{
+				signal(SIGINT, handle_sigint_clean);
+				fd = open("/tmp/here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+				data()->h_fd = fd;
+				while (1)
+				{
+					line = readline("> ");
+					if (!line || \
+					ft_strncmp(line, current->prompt->tokens[i], \
+					ft_strlen(current->prompt->tokens[i]) + 1) == 0)
+					{
+						if (!line)
+							error_msg(current->prompt->tokens[i]);
+						free(line);
+						break ;
+					}
+					ft_putendl_fd(line, data()->h_fd);
+				}
+				close(data()->h_fd);
+				exit(0);
+			}
+			waitpid(pid, NULL, 0);
+			open_heredoc(current);
+			return (current->is_exec);
+		}
 	}
-}
-
-int ft_open_here_doc (t_command *current)
-{
-    int i;
-    int fd;
-    int pid;
-    char *line;
-
-    i = -1;
-    while (current->prompt->tokens[++i])
-    {
-        if (current->prompt->tokens_id[i] == HEREDOC_ID)
-        {
-            if (current->infile_fd != -1)
-                close(current->infile_fd);
-            pid = fork();
-            signal(SIGINT, handle_sigint_hd);
-            if (pid == 0)
-            {
-                signal(SIGINT, handle_sigint_clean);
-                fd = open("/tmp/here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
-                data()->h_fd = fd;
-                while (1)
-                {
-                    line = readline("> ");
-                    if (!line || \
-			                    ft_strncmp(line, current->prompt->tokens[i], ft_strlen(current->prompt->tokens[i]) + 1) == 0)
-                    {
-                        if (!line)
-			                error_msg(current->prompt->tokens[i]);
-                        free(line);
-                        break ;
-                    }
-                    ft_putendl_fd(line, data()->h_fd);
-                }
-                close(data()->h_fd);
-                exit(0);
-            }
-            waitpid(pid, NULL, 0);
-            open_heredoc(current);
-            return (current->is_exec);
-        }
-    }
-    return (current->is_exec);
-}
-
-int ft_open_all (t_command *head)
-{
-    t_command   *current;
-    int     i;
-
-
-    current = head;
-    while (current)
-    {
-        i = -1;
-        ft_open_here_doc(current);
-        while (current->prompt->tokens[++i])
-            check_open_redirect(current, i);
-        if(current->infile_fd != -1 && index_heredoc(current) > index_last_infile(current))
-        {
-            close(current->infile_fd);
-            open_heredoc(current);
-        }
-        current = current->next;
-    }
-    return (1);
+	return (current->is_exec);
 }

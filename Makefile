@@ -31,7 +31,10 @@ SRC = minishell.c \
 	  cd.c \
 	  env.c \
 	  unset.c \
-	
+	  aux.c \
+	  aux1.c \
+	  aux2.c \
+
 all: $(NAME)
 
 $(NAME): $(SRC:.c=.o)

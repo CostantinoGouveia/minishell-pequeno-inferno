@@ -1,5 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   erros_sintax.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/07 10:06:16 by cgouveia          #+#    #+#             */
+/*   Updated: 2025/02/07 11:24:59 by cgouveia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-static int	is_open_quotes(char *token);
+
+int	is_open_quotes(char *token)
+{
+	int		i;
+	char	quotes;
+
+	i = 0;
+	while (token[i])
+	{
+		quotes = '\0';
+		while (token[i] && (token[i] != '\"' && token[i] != '\''))
+			i++;
+		if (token[i])
+			quotes = token[i++];
+		else
+			return (0);
+		while (token[i] && (token[i] != quotes))
+			i++;
+		if (!token[i])
+			return (quotes);
+		else
+			i++;
+	}
+	return (0);
+}
 
 char	**lexer_sintax_error(char *s1)
 {
@@ -59,115 +95,4 @@ int	is_redirect(char *token)
 		|| !ft_strcmp(token, APPEND) || !ft_strcmp(token, HERE_DOC))
 		return (0);
 	return (1);
-}
-int	handle_quotes_err(t_token *lst)
-{
-	char	quotes;
-	t_token	*curr;
-
-	curr = lst;
-	while (curr)
-	{
-		quotes = is_open_quotes(curr->token);
-		if (quotes)
-			return (msg_error(lst, (char []){quotes, '\0'}, 1));
-		curr = curr->next;
-	}
-	return (0);
-}
-
-int	handle_big_redir(t_token *lst)
-{
-	t_token	*curr;
-
-	curr = lst;
-	while (curr)
-	{
-		if (!ft_strncmp(curr->token, ">>>", 3))
-			return (msg_error(lst, ">", 1));
-		else if (!ft_strncmp(curr->token, "<<<", 3))
-			return (msg_error(lst, "<", 1));
-		else if (!ft_strncmp(curr->token, ">><", 3))
-			return (msg_error(lst, "<", 1));
-		else if (!ft_strncmp(curr->token, "<<>", 3))
-			return (msg_error(lst, ">", 1));
-		else if (!ft_strncmp(curr->token, "<>", 2))
-			return (msg_error(lst, ">", 1));
-		else if (!ft_strncmp(curr->token, "><", 2))
-			return (msg_error(lst, "<", 1));
-		curr = curr->next;
-	}
-	return (0);
-}
-
-int	handle_newline_err(t_token *lst)
-{
-	t_token	*curr;
-
-	curr = lst;
-	while (curr)
-	{
-		if (!is_redirect(curr->token) && \
-			(curr->prev == NULL && curr->next == NULL))
-			return (msg_error(lst, "newline", 1));
-		else if (!is_redirect(curr->token) && \
-			(curr->next == NULL))
-			return (msg_error(lst, "newline", 1));
-		else if (curr->next && (!is_redirect(curr->token) && \
-			!is_redirect(curr->next->token)))
-			return (msg_error(lst, curr->next->token, 1));
-		curr = curr->next;
-	}
-	return (0);
-}
-
-int	handle_pipe_err(t_token *lst)
-{
-	t_token	*curr;
-
-	curr = lst;
-	while (curr)
-	{
-		if (!ft_strcmp(curr->token, PIPE) && \
-			(curr->prev == NULL || curr->next == NULL))
-			return (msg_error(lst, PIPE, 1));
-		else if (curr->next && !is_redirect(curr->token) && \
-				!ft_strcmp(curr->next->token, PIPE))
-			return (msg_error(lst, PIPE, 1));
-		else if (!ft_strncmp(curr->token, "||", 2))
-			return (msg_error(lst, PIPE, 1));
-		else if (curr->next && !ft_strcmp(curr->token, PIPE) && \
-				!ft_strcmp(curr->next->token, PIPE))
-			return (msg_error(lst, PIPE, 1));
-		else if (curr->next && !ft_strcmp(curr->token, PIPE) && \
-				!ft_strcmp(curr->next->token, PIPE))
-			return (msg_error(lst, PIPE, 1));
-		curr = curr->next;
-	}
-	return (0);
-}
-
-static int	is_open_quotes(char *token)
-{
-	int		i;
-	char	quotes;
-
-	i = 0;
-	while (token[i])
-	{
-		quotes = '\0';
-		while (token[i] && (token[i] != '\"' && token[i] != '\''))
-			i++;
-		if (token[i])
-			quotes = token[i++];
-		else
-			return (0);
-		while (token[i] && (token[i] != quotes))
-			i++;
-		if (!token[i])
-			return (quotes);
-		else
-			i++;
-	}
-	return (0);
 }

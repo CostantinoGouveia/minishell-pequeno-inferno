@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/30 12:29:45 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:26:13 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,13 @@ void	new_struct(t_prompt *prompt, t_command **head);
 void	print_commands(t_command *head);
 t_command	*init_exec(t_prompt *prompt);
 void	wait_all(t_command *head);
+int	is_builtin(char *cmd);
 
 /*execucao*/
 void executor(t_command *head);
 void builtins(t_command *command, int infile, int outfile);
 void	ft_dup2(t_command *command, int infile, int outfile);
+void	check_open_redirect(t_command *command, int i);
 
 /*commandos*/
 void ft_echo(char **args, int outfile, int infile);
@@ -167,6 +169,10 @@ void    ft_env(int outfile, int dec);
 void ft_export(char **args, int outfile);
 void ft_unset(char **args);
 void free_no_envp(t_envp *no);
+void print_error1(char *name);
+int	is_num(char *str);
+int	in_str(char *str, char c);
+char	*get_name(char *str);
 
 /* Lexer */
 int			white_space(char c);
@@ -184,6 +190,7 @@ void		replace_spaces(char *s1);
 void		end_quote(char *sig, char **s1, char **s2);
 void		space_end(char **tokens);
 int			ft_strcmp(const char *s1, const char *s2);
+int	is_open_quotes(char *token);
 
 /*heredoc*/
 void	open_heredoc(t_command *command);
