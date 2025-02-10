@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_elements.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 09:52:19 by cgouveia          #+#    #+#             */
+/*   Updated: 2025/02/10 09:54:58 by cgouveia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_prompt(t_prompt **root)
@@ -77,56 +89,4 @@ void	free_tokens(t_token **root)
 		free(aux);
 	}
 	*root = NULL;
-}
-
-void	free_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr && arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
-	}
-}
-
-void	free_envp(t_envp *head)
-{
-	t_envp	*current;
-	t_envp	*tmp;
-
-	current = head;
-	while (current)
-	{
-		tmp = current;
-		current = current->next;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-	}
-	head = NULL;
-}
-
-void	free_struct(t_command *head)
-{
-	t_command	*current;
-	t_command	*tmp;
-
-	current = head;
-	while (current)
-	{
-		tmp = current;
-		current = current->next;
-		free_arr(tmp->args);
-		free(tmp->path);
-		free_prompt2(tmp->prompt);
-		free(tmp);
-	}
-	head = NULL;
-	free(head);
 }

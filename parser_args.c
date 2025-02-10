@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_args.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 10:11:22 by cgouveia          #+#    #+#             */
+/*   Updated: 2025/02/10 10:22:26 by cgouveia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	parser_args(t_args **args, char **tokens)
@@ -45,4 +57,25 @@ void	fill_args(t_args *node, char **tokens, int *i)
 			(*i)++;
 	}
 	node->args[j] = NULL;
+}
+
+int	white_space(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
+
+int	just_spaces(char *str)
+{
+	int	i;
+	int	spaces;
+
+	i = 0;
+	spaces = 0;
+	while (str[i])
+	{
+		if (white_space(str[i]))
+			spaces++;
+		i++;
+	}
+	return (ft_strlen(str) - spaces);
 }

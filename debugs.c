@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debugs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgouveia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:58:47 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/02/06 13:58:50 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:07:57 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,17 @@ void	print_redirects(t_redirect *root)
 			printf("%s, ", curr->tokens[i++]);
 		printf("}\n\n");
 		curr = curr->next;
+	}
+}
+
+void	print_tokens(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		printf("tokens[%d]: %s\n", i, tokens[i]);
+		i++;
 	}
 }

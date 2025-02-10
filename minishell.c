@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:16:01 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/01/30 13:28:22 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:13:06 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,6 @@ void	exec_process(t_prompt *prompt)
 	free_struct(data()->exec);
 }
 
-void	unlink_heredoc(void)
-{
-	if (access("/tmp/here_doc", F_OK) == 0)
-		unlink("/tmp/here_doc");
-}
-
-void	cmdline_utils(char **line)
-{
-	free(*line);
-	*line = NULL;
-	unlink_heredoc();
-}
-
-void print_tokens(char **tokens)
-{
-    int i;
-
-    i = 0;
-    while (tokens[i])
-    {
-        printf("tokens[%d]: %s\n", i, tokens[i]);
-        i++;
-    }
-}
 void	init_process(char *line)
 {
 	char		**tokens;
@@ -69,12 +45,10 @@ void	init_process(char *line)
 	exec_process(prompt);
 }
 
-
-
-int	cmdline(char *cmd_line, int ac, char **envp)
+void	cmdline(char *cmd_line, int ac, char **envp)
 {
 	if (ac != 1)
-		return (ft_putstr_fd("Error: Wrong arguments\n", 2), 0);
+		return (ft_putstr_fd("Error: Wrong arguments\n", 2));
 	new_envp(envp);
 	while (true)
 	{
@@ -98,17 +72,14 @@ int	cmdline(char *cmd_line, int ac, char **envp)
 		}
 		cmdline_utils(&cmd_line);
 	}
-	return (0);
 }
 
-
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-    char	*cmd_line;
+	char	*cmd_line;
 
-    (void)av;
+	(void)av;
 	cmd_line = NULL;
 	cmdline(cmd_line, ac, envp);
-	return 0;
+	return (0);
 }
-

@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trim_quotes.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 10:22:49 by cgouveia          #+#    #+#             */
+/*   Updated: 2025/02/10 10:23:10 by cgouveia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	have_quotes(char *s1);
 static char	*handle_trim_quotes(char const *s1, int *val);
@@ -47,6 +57,7 @@ static char	*handle_trim_quotes(char const *s1, int *val)
 	s2[i] = '\0';
 	return (s2);
 }
+
 char	*strtrim_quote(char *str)
 {
 	int		val;

@@ -11,10 +11,14 @@ SRC = minishell.c \
       token.c \
 	  erros_sintax.c \
 	  free_elements.c \
+	  free_elements_1.c \
 	  lista_aux.c \
 	  parser_args.c \
 	  parser_prompt.c \
 	  parser_redirect.c \
+	  utils_1.c \
+	  utils_2.c \
+	  utils_3.c \
 	  utils.c \
 	  expander.c \
 	  trim_quotes.c \
