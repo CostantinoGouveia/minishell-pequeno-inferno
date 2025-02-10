@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgouveia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:35:43 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/02/07 09:35:46 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:53:55 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_export(char **args, int outfile)
 			if (!name)
 				continue ;
 			if (ft_isdigit(name[0]) || in_str(name, '-' ) \
-			|| in_str(name, '@') || in_str(name, '?') || (in_str(args[i], '=') \
-			&& in_str(name, '+')))
+			|| in_str(name, '@') || in_str(name, '?') || in_str(name, '\'') \
+			|| in_str(name, '"') || (in_str(args[i], '=') && in_str(name, '+')))
 				print_error1(name);
 			else
 				value_export(args, i, name);

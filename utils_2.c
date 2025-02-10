@@ -6,7 +6,7 @@
 /*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:18:03 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/02/10 10:18:19 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:50:44 by cgouveia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ void	handle_redirects(char *s1, char *s2)
 		*s2 = '\0';
 }
 
-/**
- * Substitui separador
- * echo "hello      there" how are 'you 'doing? $USER |wc -l >outfile
- * echo/2"hello      there"/2how/2are/2'you 'doing?/2$USER/2|wc/2-l/2>outfile
-*/
 void	replace_spaces(char *s1)
 {
 	char	sig;
