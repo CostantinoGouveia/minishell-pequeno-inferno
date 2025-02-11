@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ferda-si <ferda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:13:47 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/02/07 10:52:36 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:31:14 by ferda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_put_error(t_command *command)
+{
+	if (command && command->args[0])
+	{
+		ft_putstr_fd(command->args[0], STDERR_FILENO);
+		ft_putendl_fd(" command not found!", STDERR_FILENO);
+	}
+}
 
 static int	exec_v(t_command *command, int infile, int outfile)
 {
@@ -26,21 +35,9 @@ static int	exec_v(t_command *command, int infile, int outfile)
 			ft_dup2(command, infile, outfile);
 			if (command->path \
 			&& execve(command->path, command->args, getevarr()->envp) == -1)
-			{
-				if (command && command->args[0])
-				{
-					ft_putstr_fd(command->args[0], STDERR_FILENO);
-					ft_putendl_fd(" command not found!", STDERR_FILENO);
-				}
-			}
+				ft_put_error(command);
 			else
-			{
-				if (command && command->args[0])
-				{
-					ft_putstr_fd(command->args[0], STDERR_FILENO);
-					ft_putendl_fd(" command not found!", STDERR_FILENO);
-				}
-			}
+				ft_put_error(command);
 			clean_newline();
 			exit(127);
 		}

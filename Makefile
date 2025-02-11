@@ -38,6 +38,8 @@ SRC = minishell.c \
 	  aux.c \
 	  aux1.c \
 	  aux2.c \
+	  fd_aux.c \
+	  exit_aux.c \
 
 all: $(NAME)
 

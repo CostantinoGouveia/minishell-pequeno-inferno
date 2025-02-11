@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgouveia <cgouveia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ferda-si <ferda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 08:34:20 by cgouveia          #+#    #+#             */
-/*   Updated: 2025/02/10 12:43:55 by cgouveia         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:47:20 by ferda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ void		executor(t_command *head);
 void		builtins(t_command *command, int infile, int outfile);
 void		ft_dup2(t_command *command, int infile, int outfile);
 void		check_open_redirect(t_command *command, int i);
-
+int			is_valid_digit(char *str, int *aux);
+void		exiting(int aux);
+void		print_error(char *str, int *aux);
 /*commandos*/
 void		ft_echo(char **args, int outfile, int infile);
 void		ft_exit(char **args);
@@ -193,6 +195,9 @@ int			is_open_quotes(char *token);
 void		open_heredoc(t_command *command);
 int			ft_open_here_doc(t_command *current);
 int			ft_open_all(t_command *head);
+void		ft_infile_id(t_command *command, int i);
+void		ft_outfile_id(t_command *command, int i);
+void		append_id(t_command *command, int i);
 
 /*sinais*/
 void		handle_sigint(int sig);
